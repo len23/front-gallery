@@ -8,6 +8,7 @@ import { PublicFeedService } from '../public-feed.service';
 })
 export class PhotoSearchComponent implements OnInit {
 
+  // Event sent from the gallery-list component parent
   @Output()
   searchClicked: EventEmitter<string> = new EventEmitter<string>();
 

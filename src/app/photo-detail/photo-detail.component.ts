@@ -13,6 +13,7 @@ export class PhotoDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // need to initialize the photo object beacuse the boostrap modal is hidden and neeed this data
     this.photo = {
       id: '',
       title: '',

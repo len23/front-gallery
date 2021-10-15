@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Photo } from '../models/photo'
 import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class PublicFeedService {
   constructor(private http: HttpClient) { }
 
   getFeed(): Observable<Array<Photo>> {
-    const result = this.http.get<Array<Photo>>(this.feedUrl, this.httpOptions);
+    const result = this.http.get<Array<Photo>>(this.feedUrl, this.httpOptions).pipe(
+      catchError(this.handleError<Array<Photo>>('getFeed', []))
+    );
     return result;
   }
 
@@ -27,5 +30,16 @@ export class PublicFeedService {
     }
     const result = this.http.get<Array<Photo>>(`${this.feedUrl}/?search=${term}`);
     return result;
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error('error ==> ', error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }

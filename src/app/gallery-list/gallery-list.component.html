@@ -1,5 +1,8 @@
+<!-- This component sends the event searchClicked for this component-->
 <app-photo-search (searchClicked)="searchPhotos($event)"></app-photo-search>
-<div class="row gallery-list" *ngIf='photos; else elseBlock'>
+
+<!-- Check if there's not error messages -->
+<div class="row gallery-list" *ngIf='!message; else elseBlock'>
   <div class="col-3 " *ngFor='let photo of photos'>
     <div class="card text-dark bg-light mb-3" style="width: 18rem;">
       <img class="w-100 py-3" src="{{photo.image_link}}" alt="">
@@ -13,11 +16,12 @@
   </div>
 </div>
 
+<!-- Here is the modal with the hoto details wich has a photo input-->
 <app-photo-detail [photo]="selectedPhoto"></app-photo-detail>
 
-
+<!-- In case if there's an error message -->
 <ng-template #elseBlock>
   <div class="row w-100 align-items-center v-50">
-    <p class="fs-1 text-center fw-bold text-warning">No results</p>
+    <p class="fs-1 text-center fw-bold text-danger">{{message}}</p>
   </div>
 </ng-template>

@@ -9,6 +9,7 @@
       <div class="modal-body">
         <h3>Tags</h3>
         <ul>
+          <!-- Converting the photo tags to an array and iterating them-->
           <li *ngFor="let tag of photo.tags.split(' ')">
             {{tag}}
           </li>
