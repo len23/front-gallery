@@ -1,0 +1,23 @@
+<app-photo-search (searchClicked)="searchPhotos($event)"></app-photo-search>
+<div class="row gallery-list" *ngIf='photos; else elseBlock'>
+  <div class="col-3 " *ngFor='let photo of photos'>
+    <div class="card text-dark bg-light mb-3" style="width: 18rem;">
+      <img class="w-100 py-3" src="{{photo.image_link}}" alt="">
+      <div class="card-body">
+        <h5 class="card-title">{{photo.title.slice(0,15)}}</h5>
+        <p class="card-text"><span>Tags: </span> {{photo.tags.slice(0,20)}} </p>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="selectPhoto(photo)">See More</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-photo-detail [photo]="selectedPhoto"></app-photo-detail>
+
+
+<ng-template #elseBlock>
+  <div class="row w-100 align-items-center v-50">
+    <p class="fs-1 text-center fw-bold text-warning">No results</p>
+  </div>
+</ng-template>
